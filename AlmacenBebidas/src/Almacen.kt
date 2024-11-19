@@ -2,33 +2,39 @@ class Almacen {
     private val estanteria=Array(5){ arrayOfNulls<Bebida>(5) }
     private val bebidas= mutableMapOf<Int,Bebida>()
 
-    fun agregarBebida(bebida: Bebida, fila: Int, columna:Int){
-        if(bebidas.containsKey(bebida.idBebida)){
+    fun agregarBebida(bebida: Bebida, fila: Int, columna: Int) {
+        if (bebidas.containsKey(bebida.idBebida)) {
             println("Bebida con ID ${bebida.idBebida} ya existe")
             return
         }
 
-        if(estanteria[fila][columna]!=null){
-            println("Espacio ocupado en la estanteria en posicion($fila,$columna).")
+        if (estanteria[fila][columna] != null) {
+            println("Espacio ocupado en la estantería en posición ($fila, $columna).")
             return
         }
+
+        estanteria[fila][columna] = bebida
+        bebidas[bebida.idBebida] = bebida
+        println("Bebida con ID ${bebida.idBebida} agregada a la posición ($fila, $columna).")
     }
 
-    fun eliminarBebida(idBebida: Int){
-        val bebida= bebidas.remove(idBebida) ?: run {
-            println("No se encontro bebida con su ID $idBebida")
+
+    fun eliminarBebida(idBebida: Int) {
+        val bebida = bebidas.remove(idBebida) ?: run {
+            println("No se encontró bebida con ID $idBebida")
             return
         }
-        for(i in 0 until 5){
-            for(j in 0 until 5){
-                if(estanteria[i][j] == bebida){
-                    estanteria[i][j] == null
-                    println("Bebida con ID $idBebida eliminada")
+        for (i in 0 until 5) {
+            for (j in 0 until 5) {
+                if (estanteria[i][j] == bebida) {
+                    estanteria[i][j] = null
+                    println("Bebida con ID $idBebida eliminada de la posición ($i, $j).")
                     return
                 }
             }
         }
     }
+
 
     fun mostrarBebida(idBebida: Int){
         val bebida= bebidas[idBebida]
